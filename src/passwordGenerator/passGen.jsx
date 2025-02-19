@@ -6,7 +6,7 @@ import { handleCopyPassword, generatePassword, savePassword } from "../utils/uti
 function PassGen() {
   const [copyPassword, setCopyPassword] = useState("No Selected Password");
   const [password, setPassword] = useState("");
-  const [passwordLength, setPasswordLength] = useState(0);
+  const [passwordLength, setPasswordLength] = useState(12);
 
   let passArr;
   if(!localStorage.getItem("passArr")){
