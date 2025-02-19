@@ -4,7 +4,6 @@ import {
   faCopy,
   faHeart,
 } from "@fortawesome/free-regular-svg-icons";
-import { platformsData } from "./data/platformData";
 import { useState, useEffect } from "react";
 import { faTrash } from "@fortawesome/free-solid-svg-icons";
 
@@ -21,7 +20,6 @@ function PassMan() {
     fetchPasswords();
 
     const intervalId = setInterval(fetchPasswords, 1000);
-    console.log(passwords)
     return () => clearInterval(intervalId);
   }, []);
 
