@@ -4,9 +4,10 @@ export function handleCopyPassword(dataField){
 }
 
 // Save Password
-export function savePassword(passArr, applicationName, userName, password, isFavourite = false){
-    passArr.push([applicationName, userName, password, isFavourite])
-    localStorage.setItem("passArr", JSON.stringify(passArr))
+export function savePassword(passArr, applicationName, userName, password, isFavourite = false) {
+    passArr.push([applicationName, userName, password, isFavourite]);
+    localStorage.setItem("passArr", JSON.stringify(passArr));
+    window.dispatchEvent(new Event("passwordUpdated"));
 }
 
 // Generate Password

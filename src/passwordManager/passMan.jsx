@@ -1,28 +1,25 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {
-  faCopy,
-  faHeart,
-} from "@fortawesome/free-regular-svg-icons";
-import { useState, useEffect } from "react";
-import { faTrash } from "@fortawesome/free-solid-svg-icons";
+import { faCopy, faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
 
 function PassMan() {
+  const [passwords, setPasswords] = useState([]);
 
-  const [passwords, setPasswords] = useState([])
-  
+  // Function to fetch passwords from localStorage
+  const fetchPasswords = () => {
+    const storedPasswords = JSON.parse(localStorage.getItem("passArr")) || [];
+    setPasswords(storedPasswords);
+  };
+
   useEffect(() => {
-    const fetchPasswords = () => {
-      const storedPasswords = JSON.parse(localStorage.getItem("passArr")) || [];
-      setPasswords(storedPasswords);
-    };
-    
-    fetchPasswords();
+    fetchPasswords(); // Load passwords on mount
 
-    const intervalId = setInterval(fetchPasswords, 1000);
-    return () => clearInterval(intervalId);
+    // Listen for custom "passwordUpdated" event
+    const handlePasswordUpdate = () => fetchPasswords();
+
+    window.addEventListener("passwordUpdated", handlePasswordUpdate);
+    return () => window.removeEventListener("passwordUpdated", handlePasswordUpdate);
   }, []);
-
 
   return (
     <div className="managerContainer w-[30vw]">
@@ -40,11 +37,7 @@ function PassMan() {
             className="individualContainer border rounded-2xl mb-2.5 flex gap-2.5 p-2 items-center"
           >
             <div className="iconContainer w-[20%]">
-              <img
-                src={data.imageUrl}
-                alt={data[1]}
-                className="h-10"
-              />
+              <img src={data.imageUrl} alt={data[0]} className="h-10" />
             </div>
             <div className="savedPassDetails w-[60%]">
               <p>{data[1]}</p>
