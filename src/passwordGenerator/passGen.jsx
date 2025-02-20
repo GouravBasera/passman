@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import { handleCopyPassword, generatePassword, savePassword } from "../utils/utils";
+import encryptPassword from './encrypt'
 
 function PassGen() {
   const [copyPassword, setCopyPassword] = useState("No Selected Password");
   const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(8);
 
-  // Ensure passArr is initialized properly
   const passArr = JSON.parse(localStorage.getItem("passArr")) || [];
 
   return (
@@ -69,7 +69,8 @@ function PassGen() {
           onClick={() => {
             const userVal = document.getElementById("username").value;
             const applicationVal = document.getElementById("platformName").value;
-            savePassword(passArr, applicationVal, userVal, password);
+            const encryptedPassword = encryptPassword(password)
+            savePassword(passArr, applicationVal, userVal, encryptedPassword);
           }}
         >
           Save

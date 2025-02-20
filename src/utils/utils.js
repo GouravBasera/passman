@@ -19,3 +19,9 @@ export function generatePassword(len){
         .length)]
     } return generatedPasswordString
 }
+
+// Delete Password
+export function deleteIndividualPassword(){}
+
+// Delete All Passwords 
+export function deleteAllPasswords(){}
