@@ -4,8 +4,8 @@ export function handleCopyPassword(dataField){
 }
 
 // Save Password
-export function savePassword(passArr, applicationName, userName, password, isFavourite = false) {
-    passArr.push([applicationName, userName, password, isFavourite]);
+export function savePassword(passArr, applicationName, userName, password, isFavourite = false, isVisible = false) {
+    passArr.push([applicationName, userName, password, isFavourite, isVisible]);
     localStorage.setItem("passArr", JSON.stringify(passArr));
     window.dispatchEvent(new Event("passwordUpdated"));
 }
@@ -25,3 +25,8 @@ export function deleteIndividualPassword(){}
 
 // Delete All Passwords 
 export function deleteAllPasswords(){}
+
+// Show / Hide Password
+export function changePasswordVisibility(){
+    console.log("changed")
+}
