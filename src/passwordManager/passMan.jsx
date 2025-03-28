@@ -1,9 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCopy, faEye, faHeart, faTrash } from "@fortawesome/free-solid-svg-icons";
-import decryptPassword from './decrypt'
-import {changePasswordVisibility, handleCopyPassword} from '../utils/utils'
-import NetflixLogo from '../assets/NetflixLogo.webp'
+import {
+  faCopy,
+  faEye,
+  faEyeSlash,
+  faHeart,
+  faTrash,
+} from "@fortawesome/free-solid-svg-icons";
+import decryptPassword from "./decrypt";
+import { handleCopyPassword } from "../utils/utils";
+import NetflixLogo from "../assets/NetflixLogo.webp";
 
 function PassMan() {
   const [passwords, setPasswords] = useState([]);
@@ -18,8 +24,13 @@ function PassMan() {
     const handlePasswordUpdate = () => fetchPasswords();
 
     window.addEventListener("passwordUpdated", handlePasswordUpdate);
-    return () => window.removeEventListener("passwordUpdated", handlePasswordUpdate);
+    return () =>
+      window.removeEventListener("passwordUpdated", handlePasswordUpdate);
   }, []);
+
+  const [currPass, setCurrPass] = useState("********");
+  const [iconVisibility, setIconVisibility] = useState(faEye);
+  const [visibilityPass, setVisibilityPass] = useState(false);
 
   return (
     <div className="managerContainer w-[30vw]">
@@ -42,13 +53,33 @@ function PassMan() {
             <div className="savedPassDetails w-[60%]">
               <p>{data[1]}</p>
               <div className="relative w-full flex items-center">
-                <p className="mr-2 passwordContainer">{"********"}</p>
+                <p className="mr-2 w-[80%] passwordContainer">{currPass}</p>
                 <span className="cursor-pointer text-gray-600">
-                  <FontAwesomeIcon icon={faCopy} onClick={()=>{handleCopyPassword(decryptPassword(data[2]))}}/>
+                  <FontAwesomeIcon
+                    icon={faCopy}
+                    onClick={() => {
+                      handleCopyPassword(decryptPassword(data[2]));
+                    }}
+                  />
                 </span>
-                <span className="pl-2"><FontAwesomeIcon icon={faEye} onClick={()=>{
-                  console.log(`clicked ${data[1]}`)
-                }}></FontAwesomeIcon></span>
+                <span className="pl-2">
+                  <FontAwesomeIcon
+                    icon={iconVisibility}
+                    onClick={() => {
+                      setVisibilityPass((prev) => {
+                        const newState = !prev;
+                        if (newState) {
+                          setCurrPass(decryptPassword(data[2]));
+                          setIconVisibility(faEyeSlash);
+                        } else {
+                          setCurrPass("********");
+                          setIconVisibility(faEye);
+                        }
+                        return newState;
+                      });
+                    }}
+                  />
+                </span>
               </div>
             </div>
             <div className="saveCopyShowButtons w-[20%]">
@@ -56,7 +87,9 @@ function PassMan() {
                 <FontAwesomeIcon icon={faHeart} />
               </button>
               <br />
-              <button>
+              <button onClick={()=>{
+                
+              }}>
                 <FontAwesomeIcon icon={faTrash} />
               </button>
             </div>
