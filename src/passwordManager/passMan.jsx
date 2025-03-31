@@ -4,9 +4,10 @@ import {
   faCopy,
   faEye,
   faEyeSlash,
-  faHeart,
+  faHeart as faHeartFilled,
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
+import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import decryptPassword from "./decrypt";
 import { handleCopyPassword } from "../utils/utils";
 import NetflixLogo from "../assets/NetflixLogo.webp";
@@ -83,14 +84,20 @@ function PassMan() {
               </div>
             </div>
             <div className="saveCopyShowButtons w-[20%]">
-              <button>
-                <FontAwesomeIcon icon={faHeart} />
+              <button onClick={()=>{
+                const updatedPasswords = passwords.map((password)=>{
+                  if(password[2] == data[2]){
+                    data[3] = !data[3]
+                  }
+                  return password
+                })
+                localStorage.setItem('passArr', JSON.stringify(updatedPasswords))
+                setPasswords(updatedPasswords)
+              }}>
+                <FontAwesomeIcon icon={data[3] ? faHeartFilled : faHeart} />
               </button>
               <br />
               <button onClick={()=>{
-                
-              }}>
-                <FontAwesomeIcon icon={faTrash} onClick={()=>{
                   const getPasswords = JSON.parse(localStorage.getItem("passArr"))
                   const newUpdatedPassword = getPasswords.filter((password)=>{
                     if(password[2] != data[2]){
@@ -99,7 +106,8 @@ function PassMan() {
                   })
                   localStorage.setItem("passArr", JSON.stringify(newUpdatedPassword))
                   setPasswords(newUpdatedPassword)
-                }}/>
+                }}>
+                <FontAwesomeIcon icon={faTrash}/>
               </button>
             </div>
           </div>
