@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import getBrandLogo from "../utils/getBrandLogo";
+import { getBrandLogo } from "../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -7,7 +7,7 @@ import {
   generatePassword,
   savePassword,
 } from "../utils/utils";
-import encryptPassword from "./encrypt";
+import { encryptPassword } from "../utils/utils";
 
 function PassGen() {
   const [copyPassword, setCopyPassword] = useState("No Selected Password");

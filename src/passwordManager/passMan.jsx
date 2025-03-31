@@ -8,7 +8,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import decryptPassword from "./decrypt";
+import { decryptPassword } from "../utils/utils";
 import { handleCopyPassword } from "../utils/utils";
 
 function PassMan() {

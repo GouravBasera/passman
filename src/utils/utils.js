@@ -1,3 +1,5 @@
+import CryptoJS from "crypto-js"
+
 // Copy Password
 export function handleCopyPassword(dataField){
     navigator.clipboard.writeText(dataField)
@@ -25,3 +27,27 @@ export function deleteIndividualPassword(){}
 
 // Delete All Passwords 
 export function deleteAllPasswords(){}
+
+export const getBrandLogo = async (platformName) => {
+    const response = await fetch(`https://api.brandfetch.io/v2/search/${platformName}?c=${import.meta.env.BRANDFETCH_CLIENT_ID}`, {
+    method: "GET",
+    headers: {
+        "Accept": "application/json"
+    }
+})
+
+const data = await response.json()
+return data
+}
+
+const encryptionKey = import.meta.env.VITE_SECRET_KEY
+
+export const encryptPassword = (password)=>{
+    const encryptedPassword = CryptoJS.AES.encrypt(password, encryptionKey).toString()
+    return encryptedPassword
+}
+
+export const decryptPassword = (password)=>{
+    const decryptedPassword = CryptoJS.AES.decrypt(password, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8)
+    return decryptedPassword
+}
