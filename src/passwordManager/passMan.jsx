@@ -90,7 +90,16 @@ function PassMan() {
               <button onClick={()=>{
                 
               }}>
-                <FontAwesomeIcon icon={faTrash} />
+                <FontAwesomeIcon icon={faTrash} onClick={()=>{
+                  const getPasswords = JSON.parse(localStorage.getItem("passArr"))
+                  const newUpdatedPassword = getPasswords.filter((password)=>{
+                    if(password[2] != data[2]){
+                      return password
+                    }
+                  })
+                  localStorage.setItem("passArr", JSON.stringify(newUpdatedPassword))
+                  setPasswords(newUpdatedPassword)
+                }}/>
               </button>
             </div>
           </div>
