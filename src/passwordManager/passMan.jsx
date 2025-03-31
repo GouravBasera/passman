@@ -10,7 +10,6 @@ import {
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import decryptPassword from "./decrypt";
 import { handleCopyPassword } from "../utils/utils";
-import NetflixLogo from "../assets/NetflixLogo.webp";
 
 function PassMan() {
   const [passwords, setPasswords] = useState([]);

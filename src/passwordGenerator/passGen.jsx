@@ -2,13 +2,19 @@ import React, { useState } from "react";
 import getBrandLogo from "../utils/getBrandLogo";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
-import { handleCopyPassword, generatePassword, savePassword } from "../utils/utils";
-import encryptPassword from './encrypt'
+import {
+  handleCopyPassword,
+  generatePassword,
+  savePassword,
+} from "../utils/utils";
+import encryptPassword from "./encrypt";
 
 function PassGen() {
   const [copyPassword, setCopyPassword] = useState("No Selected Password");
   const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(8);
+  const [username, setUsername] = useState("");
+  const [platformName, setPlatformName] = useState("");
 
   const passArr = JSON.parse(localStorage.getItem("passArr")) || [];
 
@@ -16,10 +22,24 @@ function PassGen() {
     <div className="mainContainer w-[40vw]">
       <div className="userInputFields inline-flex flex-col">
         <label htmlFor="platformName">Enter the Application Name</label>
-        <input type="text" id="platformName" className="p-2 rounded" />
+        <input
+          id="platformName"
+          type="text"
+          placeholder="Enter platform name"
+          value={platformName}
+          onChange={(e) => setPlatformName(e.target.value)}
+          className="inputField"
+        />
 
         <label htmlFor="username">Username</label>
-        <input type="text" id="username" className="p-2 rounded" />
+        <input
+          id="username"
+          type="text"
+          placeholder="Enter username"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          className="inputField"
+        />
 
         <label htmlFor="passwordField">Get your Password Here</label>
         <div className="relative w-full">
@@ -37,6 +57,7 @@ function PassGen() {
                 document.getElementById("passwordField").value;
               setCopyPassword(copyPassword);
               handleCopyPassword(copyPassword);
+              alert("Password Copied");
             }}
           >
             <FontAwesomeIcon icon={faCopy} />
@@ -67,20 +88,21 @@ function PassGen() {
         </button>
         <button
           className="savePassword px-6 py-2 bg-red-400 rounded-xl"
-          onClick={ async () => {
-            const userVal = document.getElementById("username").value;
-            const applicationVal = document.getElementById("platformName").value;
-            const encryptedPassword = encryptPassword(password)
+          onClick={async () => {
+            const encryptedPassword = encryptPassword(password);
             try {
-              const logos = await getBrandLogo(applicationVal);
-              const imageUrl = logos[0].icon || "";
-        
-              savePassword(passArr, applicationVal, userVal, encryptedPassword, imageUrl, false);
-        
-              return imageUrl;
+              const logos = await getBrandLogo(platformName);
+              const imageUrl = logos[0]?.icon || "";
+              savePassword(
+                passArr,
+                platformName,
+                username,
+                encryptedPassword,
+                imageUrl,
+                false
+              );
             } catch (error) {
               console.error("Error fetching brand logo:", error);
-              return "";
             }
           }}
         >
