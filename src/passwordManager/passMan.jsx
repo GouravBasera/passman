@@ -29,9 +29,7 @@ function PassMan() {
       window.removeEventListener("passwordUpdated", handlePasswordUpdate);
   }, []);
 
-  const [currPass, setCurrPass] = useState("********");
-  const [iconVisibility, setIconVisibility] = useState(faEye);
-  const [visibilityPass, setVisibilityPass] = useState(false);
+  const [visiblePasswords, setVisiblePasswords] = useState({});
 
   return (
     <div className="managerContainer w-[30vw]">
@@ -49,12 +47,12 @@ function PassMan() {
             className="individualContainer border rounded-2xl mb-2.5 flex gap-2.5 p-2 items-center"
           >
             <div className="iconContainer w-[20%]">
-              <img src={NetflixLogo} alt={data[0]} className="h-10" />
+              <img src={data[3]} alt={data[0]} className="h-10" />
             </div>
             <div className="savedPassDetails w-[60%]">
               <p>{data[1]}</p>
               <div className="relative w-full flex items-center">
-                <p className="mr-2 w-[80%] passwordContainer">{currPass}</p>
+                <p className="mr-2 w-[80%] passwordContainer">  {visiblePasswords[data[2]] ? decryptPassword(data[2]) : "********"}</p>
                 <span className="cursor-pointer text-gray-600">
                   <FontAwesomeIcon
                     icon={faCopy}
@@ -64,22 +62,15 @@ function PassMan() {
                   />
                 </span>
                 <span className="pl-2">
-                  <FontAwesomeIcon
-                    icon={iconVisibility}
-                    onClick={() => {
-                      setVisibilityPass((prev) => {
-                        const newState = !prev;
-                        if (newState) {
-                          setCurrPass(decryptPassword(data[2]));
-                          setIconVisibility(faEyeSlash);
-                        } else {
-                          setCurrPass("********");
-                          setIconVisibility(faEye);
-                        }
-                        return newState;
-                      });
-                    }}
-                  />
+                <FontAwesomeIcon
+  icon={visiblePasswords[data[2]] ? faEyeSlash : faEye}
+  onClick={() => {
+    setVisiblePasswords((prev) => ({
+      ...prev,
+      [data[2]]: !prev[data[2]],
+    }));
+  }}
+/>
                 </span>
               </div>
             </div>
@@ -87,14 +78,14 @@ function PassMan() {
               <button onClick={()=>{
                 const updatedPasswords = passwords.map((password)=>{
                   if(password[2] == data[2]){
-                    data[3] = !data[3]
+                    data[4] = !data[4]
                   }
                   return password
                 })
                 localStorage.setItem('passArr', JSON.stringify(updatedPasswords))
                 setPasswords(updatedPasswords)
               }}>
-                <FontAwesomeIcon icon={data[3] ? faHeartFilled : faHeart} />
+                <FontAwesomeIcon icon={data[4] ? faHeartFilled : faHeart} />
               </button>
               <br />
               <button onClick={()=>{
