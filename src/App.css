@@ -2,8 +2,9 @@
     border: 1px solid;
     border-radius: 8px;
     padding-left: 10px;
-    height: 30px;
-    outline: none
+    height: 40px;
+    outline: none;
+    margin-bottom: 10px
 }
 
 button{
@@ -24,3 +25,14 @@ button{
     background: #39ADFF;
     color: white;
 }
+
+.passContainer {
+    overflow: scroll; /* Enables scrolling */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE and Edge */
+  }
+  
+  .passContainer::-webkit-scrollbar {
+    display: none; /* Chrome, Safari */
+  }
+  

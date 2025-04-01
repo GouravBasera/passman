@@ -31,27 +31,27 @@ function PassMan() {
   const [visiblePasswords, setVisiblePasswords] = useState({});
 
   return (
-    <div className="managerContainer w-[30vw]">
-      <div className="buttonContainer flex">
+    <div className="managerContainer w-[40%] flex flex-col bg-[#39ADFF] justify-center items-center">
+      <div className="buttonContainer w-[80%] mb-[20px]">
         <input
           type="text"
-          className="outline pl-2.5 h-[40px] rounded-2xl mb-[10px] w-full text-center"
+          className="h-[40px] shadow-xl bg-[#EFEFEF] rounded-2xl mb-[10px] w-full text-center py-[25px]"
           placeholder="Search Password"
         />
       </div>
-      <div className="passContainer">
+      <div className="passContainer w-[80%] p-[30px] rounded-2xl shadow-xl h-[60%] bg-[#EFEFEF] overflow-scroll">
         {passwords.map((data, index) => (
           <div
             key={index}
-            className="individualContainer border rounded-2xl mb-2.5 flex gap-2.5 p-2 items-center"
+            className="individualContainer bg-[#fff] rounded-2xl shadow-xl h-[64px] mb-[30px] flex items-center"
           >
-            <div className="iconContainer w-[20%]">
+            <div className="iconContainer w-[20%] pl-[20px]">
               <img src={data[3]} alt={data[0]} className="h-10" />
             </div>
-            <div className="savedPassDetails w-[60%]">
+            <div className="savedPassDetails pl-[5%] w-[60%]">
               <p>{data[1]}</p>
               <div className="relative w-full flex items-center">
-                <p className="mr-2 w-[80%] passwordContainer">
+                <p className="w-[70%] passwordContainer">
                   {" "}
                   {visiblePasswords[data[2]]
                     ? decryptPassword(data[2])
@@ -78,7 +78,7 @@ function PassMan() {
                 </span>
               </div>
             </div>
-            <div className="saveCopyShowButtons w-[20%]">
+            <div className="saveCopyShowButtons">
               <button
                 onClick={() => {
                   const updatedPasswords = passwords.map((password) => {

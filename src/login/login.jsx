@@ -14,13 +14,13 @@ function login() {
   return (
     <>
       <div className="primaryContainer w-[100%] flex">
-        <div className="imageContainer w-[40%] h-[100vh] bg-[#39ADFF]">
+        <div className="imageContainer w-[40%] h-[80vh] bg-[#39ADFF]">
           {/* Add image to the left side */}
         </div>
-        <div className="loginContainer w-[60%] h-[100vh] flex flex-col justify-evenly items-center gap-[130px]">
+        <div className="loginContainer w-[60%] h-[80vh] flex flex-col justify-evenly items-center">
           <div className="mainLogin w-[60%]">
             <div className="textContainer mb-[20px]">
-              <p className="text-[48px]">
+              <p className="text-[40px]">
                 <strong>Create an Account</strong>
               </p>
               <p className="text-[20px]">
@@ -74,10 +74,10 @@ function login() {
                 id="phoneNumber"
                 className="h-[40px] outline-1 rounded-xl pl-[10px] mb-[20px]"
               />
-              <label htmlFor="username">Username</label>
+              <label htmlFor="loginUsername">Username</label>
               <input
                 type="text"
-                id="username"
+                id="loginUsername"
                 className="h-[40px] outline-1 rounded-xl pl-[10px]"
               />
             </div>
