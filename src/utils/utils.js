@@ -28,6 +28,7 @@ export function deleteIndividualPassword(){}
 // Delete All Passwords 
 export function deleteAllPasswords(){}
 
+// Get brand logo using BrandFetch API
 export const getBrandLogo = async (platformName) => {
     const response = await fetch(`https://api.brandfetch.io/v2/search/${platformName}?c=${import.meta.env.BRANDFETCH_CLIENT_ID}`, {
     method: "GET",
@@ -40,6 +41,8 @@ const data = await response.json()
 return data
 }
 
+
+// Password Encryption using CryptoJs
 const encryptionKey = import.meta.env.VITE_SECRET_KEY
 
 export const encryptPassword = (password)=>{
@@ -47,6 +50,7 @@ export const encryptPassword = (password)=>{
     return encryptedPassword
 }
 
+// Password Decryption using CryptoJs
 export const decryptPassword = (password)=>{
     const decryptedPassword = CryptoJS.AES.decrypt(password, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8)
     return decryptedPassword

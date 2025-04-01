@@ -51,7 +51,12 @@ function PassMan() {
             <div className="savedPassDetails w-[60%]">
               <p>{data[1]}</p>
               <div className="relative w-full flex items-center">
-                <p className="mr-2 w-[80%] passwordContainer">  {visiblePasswords[data[2]] ? decryptPassword(data[2]) : "********"}</p>
+                <p className="mr-2 w-[80%] passwordContainer">
+                  {" "}
+                  {visiblePasswords[data[2]]
+                    ? decryptPassword(data[2])
+                    : "********"}
+                </p>
                 <span className="cursor-pointer text-gray-600">
                   <FontAwesomeIcon
                     icon={faCopy}
@@ -61,43 +66,55 @@ function PassMan() {
                   />
                 </span>
                 <span className="pl-2">
-                <FontAwesomeIcon
-  icon={visiblePasswords[data[2]] ? faEyeSlash : faEye}
-  onClick={() => {
-    setVisiblePasswords((prev) => ({
-      ...prev,
-      [data[2]]: !prev[data[2]],
-    }));
-  }}
-/>
+                  <FontAwesomeIcon
+                    icon={visiblePasswords[data[2]] ? faEyeSlash : faEye}
+                    onClick={() => {
+                      setVisiblePasswords((prev) => ({
+                        ...prev,
+                        [data[2]]: !prev[data[2]],
+                      }));
+                    }}
+                  />
                 </span>
               </div>
             </div>
             <div className="saveCopyShowButtons w-[20%]">
-              <button onClick={()=>{
-                const updatedPasswords = passwords.map((password)=>{
-                  if(password[2] == data[2]){
-                    data[4] = !data[4]
-                  }
-                  return password
-                })
-                localStorage.setItem('passArr', JSON.stringify(updatedPasswords))
-                setPasswords(updatedPasswords)
-              }}>
+              <button
+                onClick={() => {
+                  const updatedPasswords = passwords.map((password) => {
+                    if (password[2] == data[2]) {
+                      data[4] = !data[4];
+                    }
+                    return password;
+                  });
+                  localStorage.setItem(
+                    "passArr",
+                    JSON.stringify(updatedPasswords)
+                  );
+                  setPasswords(updatedPasswords);
+                }}
+              >
                 <FontAwesomeIcon icon={data[4] ? faHeartFilled : faHeart} />
               </button>
               <br />
-              <button onClick={()=>{
-                  const getPasswords = JSON.parse(localStorage.getItem("passArr"))
-                  const newUpdatedPassword = getPasswords.filter((password)=>{
-                    if(password[2] != data[2]){
-                      return password
+              <button
+                onClick={() => {
+                  const getPasswords = JSON.parse(
+                    localStorage.getItem("passArr")
+                  );
+                  const newUpdatedPassword = getPasswords.filter((password) => {
+                    if (password[2] != data[2]) {
+                      return password;
                     }
-                  })
-                  localStorage.setItem("passArr", JSON.stringify(newUpdatedPassword))
-                  setPasswords(newUpdatedPassword)
-                }}>
-                <FontAwesomeIcon icon={faTrash}/>
+                  });
+                  localStorage.setItem(
+                    "passArr",
+                    JSON.stringify(newUpdatedPassword)
+                  );
+                  setPasswords(newUpdatedPassword);
+                }}
+              >
+                <FontAwesomeIcon icon={faTrash} />
               </button>
             </div>
           </div>
