@@ -3,7 +3,6 @@ import PassGen from './passwordGenerator/passGen'
 import PassMan from './passwordManager/passMan'
 import Login from './login/login'
 import Header from './header/header'
-import Footer from './footer/footer'
 
 function App() {
 
@@ -11,11 +10,10 @@ function App() {
     <>
     <Header/>
     {/* <Login/> */}
-    <div className='flex h-[80vh] w-[100vw] justify-center'>
+    <div className='flex h-[90vh] w-[100vw] justify-center'>
       <PassMan/>
       <PassGen/>
     </div>
-    <Footer/>
     </>
   )
 }
