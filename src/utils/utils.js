@@ -55,3 +55,33 @@ export const decryptPassword = (password)=>{
     const decryptedPassword = CryptoJS.AES.decrypt(password, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8)
     return decryptedPassword
 }
+
+// Search Password using Username 0 PlatName | 1 Username | 2 Password | 3 isSaved
+export const searchPasswordUsername = (crieteria)=>{
+    const allPasswords = JSON.parse(localStorage.getItem('passArr'))
+    const tempPassArr = allPasswords.filter((password)=>{
+        if(password[1] == crieteria){
+            console.log(crieteria)
+            return password
+        }
+    })
+    localStorage.setItem('tempPassArr', tempPassArr)
+    console.log(tempPassArr)
+}
+
+// Search Password using Website
+export const searchPasswordWebsite = (crieteria)=>{
+    const allPasswords = JSON.parse(localStorage.getItem('passArr'))
+    const tempPassArr = allPasswords.filter((password)=>{
+        if(password[0] == crieteria){
+            console.log(crieteria)
+            return password
+        }
+    })
+    localStorage.setItem('tempPassArr', JSON.stringify(tempPassArr))
+    console.log(tempPassArr)
+}
+
+// Sort Password with Username
+
+// Sort Password with Website

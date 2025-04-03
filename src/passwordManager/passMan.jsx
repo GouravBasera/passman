@@ -8,11 +8,17 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { decryptPassword } from "../utils/utils";
-import { handleCopyPassword } from "../utils/utils";
+import { handleCopyPassword, decryptPassword, searchPasswordUsername, searchPasswordWebsite } from "../utils/utils";
 
 function PassMan() {
+
+  // State definition
+  const [visiblePasswords, setVisiblePasswords] = useState({});
+  const [searchCrieteria, setSearchCrieteria] = useState("Search by Username")
   const [passwords, setPasswords] = useState([]);
+  const [searchValue, setSearchValue] = useState("")
+  const [isUsernameEnabled, setIsUsernameEnabled] = useState(true)
+
   const fetchPasswords = () => {
     const storedPasswords = JSON.parse(localStorage.getItem("passArr")) || [];
     setPasswords(storedPasswords);
@@ -28,16 +34,45 @@ function PassMan() {
       window.removeEventListener("passwordUpdated", handlePasswordUpdate);
   }, []);
 
-  const [visiblePasswords, setVisiblePasswords] = useState({});
-
   return (
     <div className="managerContainer w-[40%] flex flex-col bg-[#39ADFF] justify-center items-center">
-      <div className="buttonContainer w-[80%] mb-[20px]">
+      <div className="buttonContainer w-[80%] mb-[20px] flex gap-5 focus:outline-none">
         <input
           type="text"
-          className="h-[40px] shadow-xl bg-[#EFEFEF] rounded-2xl mb-[10px] w-full text-center py-[25px]"
-          placeholder="Search Password"
+          className="h-[40px] shadow-xl bg-[#EFEFEF] rounded-2xl mb-[10px] w-[80%] py-[25px] focus:outline-none text-left pl-[30px]"
+          placeholder={searchCrieteria}
+          value={searchValue}
+          onChange={(event)=>{
+            setSearchValue(event.target.value)
+          }}
         />
+        <button className="w-[20%] h-[40px] py-[25px] text-[16px] rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none" onClick={()=>{
+          if(isUsernameEnabled == true){
+            searchPasswordUsername(searchValue)
+          } else {
+            searchPasswordWebsite(searchValue)
+          }
+        }}>Search</button>
+      </div>
+      <div className="filtersContainer flex gap-2.5 mb-[20px] w-[80%] justify-end">
+        <select name="searchPasswords" id="searchPasswords" className="outline rounded-2xl flex justify-center pl-[10px]" onChange={()=>{
+          setIsUsernameEnabled((prevState) => !prevState)
+          if(!isUsernameEnabled){
+            setSearchCrieteria("Search by Website")
+          } else {
+            setSearchCrieteria("Search by Username")
+          }
+        }}>
+          <option value="byUser">Username</option>
+          <option value="byWeb">Website</option>
+        </select>
+        <select name="filters" id="filterPasswords" className="outline rounded-2xl flex justify-center pl-[10px]">
+          <option value="ascUser">Ascending Username</option>
+          <option value="descUser">Descending Username</option>
+          <option value="ascWeb">Ascending Website</option>
+          <option value="descWeb">Descending Website</option>
+        </select>
+        <button className="rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none">Clear</button>
       </div>
       <div className="passContainer w-[80%] p-[30px] rounded-2xl shadow-xl h-[60%] bg-[#EFEFEF] overflow-scroll">
         {passwords.map((data, index) => (
