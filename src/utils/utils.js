@@ -1,7 +1,7 @@
 import CryptoJS from "crypto-js"
 
 // Copy Password
-export function handleCopyPassword(dataField){
+export function handleCopyPassword(dataField) {
     navigator.clipboard.writeText(dataField)
 }
 
@@ -13,74 +13,97 @@ export function savePassword(passArr, applicationName, userName, password, isFav
 }
 
 // Generate Password
-export function generatePassword(len){
+export function generatePassword(len) {
     let passwordString = '3z5SLrgP7128eApE~IQafMXiYsKxo$l!wnJ@Oq6GTmvuC*FNDVH%B^9Zkty5j#URh0d4c&bW'
     let generatedPasswordString = ''
-    for(let i = 0; i<len; i++){
-        generatedPasswordString += passwordString[Math.round(Math.random()*passwordString
-        .length)]
+    for (let i = 0; i < len; i++) {
+        generatedPasswordString += passwordString[Math.round(Math.random() * passwordString
+            .length)]
     } return generatedPasswordString
 }
 
 // Delete Password
-export function deleteIndividualPassword(){}
+export function deleteIndividualPassword() { }
 
 // Delete All Passwords 
-export function deleteAllPasswords(){}
+export function deleteAllPasswords() { }
 
 // Get brand logo using BrandFetch API
 export const getBrandLogo = async (platformName) => {
     const response = await fetch(`https://api.brandfetch.io/v2/search/${platformName}?c=${import.meta.env.BRANDFETCH_CLIENT_ID}`, {
-    method: "GET",
-    headers: {
-        "Accept": "application/json"
-    }
-})
+        method: "GET",
+        headers: {
+            "Accept": "application/json"
+        }
+    })
 
-const data = await response.json()
-return data
+    const data = await response.json()
+    return data
 }
 
 
 // Password Encryption using CryptoJs
 const encryptionKey = import.meta.env.VITE_SECRET_KEY
 
-export const encryptPassword = (password)=>{
+export const encryptPassword = (password) => {
     const encryptedPassword = CryptoJS.AES.encrypt(password, encryptionKey).toString()
     return encryptedPassword
 }
 
 // Password Decryption using CryptoJs
-export const decryptPassword = (password)=>{
+export const decryptPassword = (password) => {
     const decryptedPassword = CryptoJS.AES.decrypt(password, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8)
     return decryptedPassword
 }
 
 // Search Password using Username 0 PlatName | 1 Username | 2 Password | 3 isSaved
-export const searchPasswordUsername = (crieteria)=>{
+export const searchPasswordUsername = (crieteria) => {
     const allPasswords = JSON.parse(localStorage.getItem('passArr'))
-    const tempPassArr = allPasswords.filter((password)=>{
-        if(password[1].toLowerCase() == crieteria.toLowerCase()){
+    const tempPassArr = allPasswords.filter((password) => {
+        if (password[1].toLowerCase() == crieteria.toLowerCase()) {
             return password
         }
     })
     localStorage.setItem('tempPassArr', JSON.stringify(tempPassArr))
-    console.log(tempPassArr)
+
 }
 
 // Search Password using Website
-export const searchPasswordWebsite = (crieteria)=>{
+export const searchPasswordWebsite = (crieteria) => {
     const allPasswords = JSON.parse(localStorage.getItem('passArr'))
-    const tempPassArr = allPasswords.filter((password)=>{
-        if(password[0].toLowerCase() == crieteria.toLowerCase()){
-            console.log(crieteria)
+    const tempPassArr = allPasswords.filter((password) => {
+        if (password[0].toLowerCase() == crieteria.toLowerCase()) {
             return password
         }
     })
     localStorage.setItem('tempPassArr', JSON.stringify(tempPassArr))
-    console.log(tempPassArr)
+
 }
 
-// Sort Password with Username
+// Sort Passwords alphabetically based on Username
+export const sortByUsername = (crieteria)=>{
+    const passwords = JSON.parse(localStorage.getItem('passArr'))
+    if(crieteria == "ascUser"){
+        const sortedPass = passwords.sort((a, b)=> a[1].localeCompare(b[1]))
+        const tempPassArr = sortedPass.map((pass)=>pass)
+        localStorage.setItem('tempPassArr', JSON.stringify(tempPassArr))
+    } else if(crieteria == "descUser"){
+        const sortedPass = passwords.sort((a, b)=> b[1].localeCompare(a[1]))
+        const tempPassArr = sortedPass.map((pass)=>pass)
+        localStorage.setItem('tempPassArr', JSON.stringify(tempPassArr))
+    }
+}
 
-// Sort Password with Website
+// Sort Passwords alphabetically based on Website
+export const sortByWebsite = (crieteria)=>{
+    const passwords = JSON.parse(localStorage.getItem('passArr'))
+    if(crieteria == "ascWeb"){
+        const sortedPass = passwords.sort((a, b)=> a[0].localeCompare(b[0]))
+        const tempPassArr = sortedPass.map((pass)=>pass)
+        localStorage.setItem('tempPassArr', JSON.stringify(tempPassArr))
+    } else if(crieteria == "descWeb"){
+        const sortedPass = passwords.sort((a, b)=> b[0].localeCompare(a[0]))
+        const tempPassArr = sortedPass.map((pass)=>pass)
+        localStorage.setItem('tempPassArr', JSON.stringify(tempPassArr))   
+    }
+}
