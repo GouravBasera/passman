@@ -8,7 +8,7 @@ import {
   faTrash,
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
-import { handleCopyPassword, decryptPassword, searchPasswordUsername, searchPasswordWebsite } from "../utils/utils";
+import { handleCopyPassword, decryptPassword, searchPasswordUsername, searchPasswordWebsite, sortByUsername, sortByWebsite } from "../utils/utils";
 
 function PassMan() {
 
@@ -67,7 +67,20 @@ function PassMan() {
           <option value="byUser">Username</option>
           <option value="byWeb">Website</option>
         </select>
-        <select name="filters" id="filterPasswords" className="outline rounded-2xl flex justify-center pl-[10px]">
+        <select name="filters" id="filterPasswords" className="outline rounded-2xl flex justify-center pl-[10px]" onChange={(e)=>{
+          const targetVal = e.target.value
+          if(targetVal == "ascUser"){
+            sortByUsername(targetVal)
+          } else if (targetVal == "descUser"){
+            sortByUsername(targetVal)
+          } else if (targetVal == "ascWeb"){
+            sortByWebsite(targetVal)
+          } else if (targetVal == "descWeb"){
+            sortByWebsite(targetVal)
+          }
+
+          setPasswords(JSON.parse(localStorage.getItem('tempPassArr')))
+        }}>
           <option value="ascUser">Ascending Username</option>
           <option value="descUser">Descending Username</option>
           <option value="ascWeb">Ascending Website</option>

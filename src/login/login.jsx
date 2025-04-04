@@ -14,7 +14,7 @@ function login() {
   return (
     <>
       <div className="primaryContainer w-[100%] flex">
-        <div className="imageContainer w-[40%] h-[80vh] bg-[#39ADFF]">
+        <div className="imageContainer w-[40%] h-[90vh] bg-[#39ADFF]">
           {/* Add image to the left side */}
         </div>
         <div className="loginContainer w-[60%] h-[80vh] flex flex-col justify-evenly items-center">
