@@ -53,7 +53,7 @@ function PassGen() {
               className="p-2 rounded w-full pr-10"
             />
             <p
-              className="copyPasswordInput absolute right-[3%] top-[33%] transform -translate-y-1/2 cursor-pointer text-gray-600"
+              className="copyPasswordInput absolute right-[3%] top-[40%] transform -translate-y-1/2 cursor-pointer text-gray-600"
               onClick={() => {
                 const copyPassword =
                   document.getElementById("passwordField").value;

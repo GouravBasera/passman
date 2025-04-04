@@ -56,7 +56,7 @@ function PassMan() {
         }}>Search</button>
       </div>
       <div className="filtersContainer flex gap-2.5 mb-[20px] w-[80%] justify-end">
-        <select name="searchPasswords" id="searchPasswords" className="outline rounded-2xl flex justify-center pl-[10px]" onChange={()=>{
+        <select name="searchPasswords" id="searchPasswords" className=" text-white rounded-2xl focus:outline-none flex justify-center pl-[10px]" onChange={()=>{
           setIsUsernameEnabled((prevState) => !prevState)
           if(!isUsernameEnabled){
             setSearchCrieteria("Search by Website")
@@ -64,10 +64,10 @@ function PassMan() {
             setSearchCrieteria("Search by Username")
           }
         }}>
-          <option value="byUser">Username</option>
-          <option value="byWeb">Website</option>
+          <option value="byUser" className="text-[#000]">Username</option>
+          <option value="byWeb" className="text-[#000]">Website</option>
         </select>
-        <select name="filters" id="filterPasswords" className="outline rounded-2xl flex justify-center pl-[10px]" onChange={(e)=>{
+        <select name="filters" id="filterPasswords" className="rounded-2xl text-white focus:outline-none flex justify-center pl-[10px]" onChange={(e)=>{
           const targetVal = e.target.value
           if(targetVal == "ascUser"){
             sortByUsername(targetVal)
@@ -81,10 +81,10 @@ function PassMan() {
 
           setPasswords(JSON.parse(localStorage.getItem('tempPassArr')))
         }}>
-          <option value="ascUser">Ascending Username</option>
-          <option value="descUser">Descending Username</option>
-          <option value="ascWeb">Ascending Website</option>
-          <option value="descWeb">Descending Website</option>
+          <option value="ascUser" className="text-[#000]">Ascending Username</option>
+          <option value="descUser" className="text-[#000]">Descending Username</option>
+          <option value="ascWeb" className="text-[#000]">Ascending Website</option>
+          <option value="descWeb" className="text-[#000]">Descending Website</option>
         </select>
         <button className="rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none" onClick={()=>{
           setPasswords(JSON.parse(localStorage.getItem('passArr')))
