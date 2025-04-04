@@ -52,6 +52,7 @@ function PassMan() {
           } else {
             searchPasswordWebsite(searchValue)
           }
+          setPasswords(JSON.parse(localStorage.getItem('tempPassArr')))
         }}>Search</button>
       </div>
       <div className="filtersContainer flex gap-2.5 mb-[20px] w-[80%] justify-end">
@@ -72,7 +73,9 @@ function PassMan() {
           <option value="ascWeb">Ascending Website</option>
           <option value="descWeb">Descending Website</option>
         </select>
-        <button className="rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none">Clear</button>
+        <button className="rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none" onClick={()=>{
+          setPasswords(JSON.parse(localStorage.getItem('passArr')))
+        }}>Clear</button>
       </div>
       <div className="passContainer w-[80%] p-[30px] rounded-2xl shadow-xl h-[60%] bg-[#EFEFEF] overflow-scroll">
         {passwords.map((data, index) => (

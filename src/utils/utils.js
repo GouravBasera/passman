@@ -60,12 +60,11 @@ export const decryptPassword = (password)=>{
 export const searchPasswordUsername = (crieteria)=>{
     const allPasswords = JSON.parse(localStorage.getItem('passArr'))
     const tempPassArr = allPasswords.filter((password)=>{
-        if(password[1] == crieteria){
-            console.log(crieteria)
+        if(password[1].toLowerCase() == crieteria.toLowerCase()){
             return password
         }
     })
-    localStorage.setItem('tempPassArr', tempPassArr)
+    localStorage.setItem('tempPassArr', JSON.stringify(tempPassArr))
     console.log(tempPassArr)
 }
 
@@ -73,7 +72,7 @@ export const searchPasswordUsername = (crieteria)=>{
 export const searchPasswordWebsite = (crieteria)=>{
     const allPasswords = JSON.parse(localStorage.getItem('passArr'))
     const tempPassArr = allPasswords.filter((password)=>{
-        if(password[0] == crieteria){
+        if(password[0].toLowerCase() == crieteria.toLowerCase()){
             console.log(crieteria)
             return password
         }
