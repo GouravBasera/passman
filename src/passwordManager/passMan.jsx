@@ -47,18 +47,21 @@ function PassMan() {
           }}
         />
         <button className="w-[20%] h-[40px] py-[25px] text-[16px] rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none" onClick={()=>{
+          if(!searchValue){
+            alert('Abe Laude kuch daal to search box me')
+          } else {
           if(isUsernameEnabled == true){
             searchPasswordUsername(searchValue)
           } else {
             searchPasswordWebsite(searchValue)
-          }
+          }}
           setPasswords(JSON.parse(localStorage.getItem('tempPassArr')))
         }}>Search</button>
       </div>
       <div className="filtersContainer flex gap-2.5 mb-[20px] w-[80%] justify-end">
         <select name="searchPasswords" id="searchPasswords" className=" text-white rounded-2xl focus:outline-none flex justify-center pl-[10px]" onChange={()=>{
           setIsUsernameEnabled((prevState) => !prevState)
-          if(!isUsernameEnabled){
+          if(isUsernameEnabled){
             setSearchCrieteria("Search by Website")
           } else {
             setSearchCrieteria("Search by Username")

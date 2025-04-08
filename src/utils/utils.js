@@ -17,16 +17,10 @@ export function generatePassword(len) {
     let passwordString = '3z5SLrgP7128eApE~IQafMXiYsKxo$l!wnJ@Oq6GTmvuC*FNDVH%B^9Zkty5j#URh0d4c&bW'
     let generatedPasswordString = ''
     for (let i = 0; i < len; i++) {
-        generatedPasswordString += passwordString[Math.round(Math.random() * passwordString
+        generatedPasswordString += passwordString[Math.floor(Math.random() * passwordString
             .length)]
     } return generatedPasswordString
 }
-
-// Delete Password
-export function deleteIndividualPassword() { }
-
-// Delete All Passwords 
-export function deleteAllPasswords() { }
 
 // Get brand logo using BrandFetch API
 export const getBrandLogo = async (platformName) => {
