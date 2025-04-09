@@ -8,7 +8,7 @@ function App() {
 
   return (
     <>
-    <Header/>
+    {/* <Header/> */}
     {/* <Login/> */}
     <div className='flex h-[90vh] w-[100vw] justify-center'>
       <PassMan/>
