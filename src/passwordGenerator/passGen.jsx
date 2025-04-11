@@ -48,7 +48,6 @@ function PassGen() {
             <input
               type="text"
               id="passwordField"
-              readOnly
               value={password}
               className="p-2 rounded w-full pr-10"
             />
