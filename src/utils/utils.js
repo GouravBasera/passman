@@ -37,7 +37,7 @@ export const getBrandLogo = async (platformName) => {
 
 
 // Password Encryption using CryptoJs
-const encryptionKey = import.meta.env.VITE_SECRET_KEY
+const encryptionKey = prompt("Please Enter your Encryption Key")
 
 export const encryptPassword = (password) => {
     const encryptedPassword = CryptoJS.AES.encrypt(password, encryptionKey).toString()
@@ -46,7 +46,7 @@ export const encryptPassword = (password) => {
 
 // Password Decryption using CryptoJs
 export const decryptPassword = (password) => {
-    const decryptedPassword = CryptoJS.AES.decrypt(password, import.meta.env.VITE_SECRET_KEY).toString(CryptoJS.enc.Utf8)
+    const decryptedPassword = CryptoJS.AES.decrypt(password, encryptionKey).toString(CryptoJS.enc.Utf8)
     return decryptedPassword
 }
 
