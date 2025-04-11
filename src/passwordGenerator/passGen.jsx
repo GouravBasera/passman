@@ -49,6 +49,7 @@ function PassGen() {
               type="text"
               id="passwordField"
               value={password}
+              onChange={(e) => setPassword(e.target.value)}
               className="p-2 rounded w-full pr-10"
             />
             <p
