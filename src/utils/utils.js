@@ -37,7 +37,7 @@ export const getBrandLogo = async (platformName) => {
 
 
 // Password Encryption using CryptoJs
-const encryptionKey = prompt("Please Enter your Encryption Key")
+const encryptionKey = "EncryptedVeryStrongly"
 
 export const encryptPassword = (password) => {
     const encryptedPassword = CryptoJS.AES.encrypt(password, encryptionKey).toString()
