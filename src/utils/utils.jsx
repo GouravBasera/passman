@@ -39,14 +39,14 @@ export const getBrandLogo = async (platformName) => {
 // Password Encryption using CryptoJs
 const encryptionKey = "EncryptedVeryStrongly"
 
-export const encryptPassword = (password) => {
-    const encryptedPassword = CryptoJS.AES.encrypt(password, encryptionKey).toString()
+export const encryptPassword = (password, key) => {
+    const encryptedPassword = CryptoJS.AES.encrypt(password, key).toString()
     return encryptedPassword
 }
 
 // Password Decryption using CryptoJs
-export const decryptPassword = (password) => {
-    const decryptedPassword = CryptoJS.AES.decrypt(password, encryptionKey).toString(CryptoJS.enc.Utf8)
+export const decryptPassword = (password, key) => {
+    const decryptedPassword = CryptoJS.AES.decrypt(password, key).toString(CryptoJS.enc.Utf8)
     return decryptedPassword
 }
 

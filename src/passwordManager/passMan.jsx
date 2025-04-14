@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faCopy,
@@ -16,9 +16,11 @@ import {
   sortByUsername,
   sortByWebsite,
 } from "../utils/utils";
+import KeyContext from "../context/KeyContext";
 
 function PassMan() {
   // State definition
+  const {key} = useContext(KeyContext)
   const [visiblePasswords, setVisiblePasswords] = useState({});
   const [searchCrieteria, setSearchCrieteria] = useState("Search by Username");
   const [passwords, setPasswords] = useState([]);
@@ -150,14 +152,14 @@ function PassMan() {
                 <div className="relative w-full flex items-center">
                   <p className="w-[70%] passwordContainer">
                     {visiblePasswords[encryptedPass]
-                      ? decryptPassword(encryptedPass)
+                      ? decryptPassword(encryptedPass, key)
                       : "********"}
                   </p>
                   <span className="cursor-pointer text-gray-600">
                     <FontAwesomeIcon
                       icon={faCopy}
                       onClick={() => {
-                        handleCopyPassword(decryptPassword(encryptedPass));
+                        handleCopyPassword(decryptPassword(encryptedPass, key));
                       }}
                     />
                   </span>

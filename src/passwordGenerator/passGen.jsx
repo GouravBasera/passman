@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { getBrandLogo } from "../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
@@ -8,8 +8,11 @@ import {
   savePassword,
 } from "../utils/utils";
 import { encryptPassword } from "../utils/utils";
+import KeyContext from "../context/KeyContext";
 
 function PassGen() {
+  const {key} = useContext(KeyContext)
+
   const [copyPassword, setCopyPassword] = useState("No Selected Password");
   const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(8);
@@ -91,7 +94,7 @@ function PassGen() {
           <button
             className="savePassword w-[50%] h-[50px] text-[16px] rounded-xl flex justify-center items-center border-2 border-[#39ADFF] bg-white px-6 py-3 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-xl hover:shadow-[4px_4px_0px_#39ADFF] active:translate-x-[0px] active:translate-y-[0px] active:rounded-xl active:shadow-none"
             onClick={async () => {
-              const encryptedPassword = encryptPassword(password);
+              const encryptedPassword = encryptPassword(password, key);
               if(!platformName || !username || !encryptedPassword){
                 alert('Gaand ke andhe saari fields bhar')
               } else {
