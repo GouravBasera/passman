@@ -96,7 +96,7 @@ function PassGen() {
             onClick={async () => {
               const encryptedPassword = encryptPassword(password, key);
               if(!platformName || !username || !encryptedPassword){
-                alert('Gaand ke andhe saari fields bhar')
+                alert('All Fields are Required')
               } else {
               try {
                 const logos = await getBrandLogo(platformName);
