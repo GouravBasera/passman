@@ -6,6 +6,7 @@ import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
 
 export default function Popup() {
   const [open, setOpen] = useState(true)
+  const [tempKey, setTempKey] = useState("")
 
   return (
     <Dialog open={open} onClose={setOpen} className="relative z-10">
@@ -30,7 +31,9 @@ export default function Popup() {
                   Enter Your Key
                   </DialogTitle>
                   <div className="mt-2">
-                    <input type="text" placeholder='Key Should be Unique' className="outline rounded pl-1 h-[40px]"/>
+                    <input type="text" placeholder='Key Should be Unique' className="outline rounded pl-1 h-[40px]" onInputCapture={(e)=>{
+                      setTempKey(e.target.value)
+                    }}/>
                   </div>
                 </div>
               </div>
@@ -38,18 +41,13 @@ export default function Popup() {
             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
               <button
                 type="button"
-                onClick={() => setOpen(false)}
+                onClick={() => {
+                  setOpen(false)
+                }
+                }
                 className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
               >
                 Deactivate
-              </button>
-              <button
-                type="button"
-                data-autofocus
-                onClick={() => setOpen(false)}
-                className="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto"
-              >
-                Cancel
               </button>
             </div>
           </DialogPanel>
