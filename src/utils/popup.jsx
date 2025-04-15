@@ -53,7 +53,7 @@ export default function Popup() {
                       placeholder={keyPlaceholder}
                       className="outline rounded-2xl pl-3 h-[40px]"
                       onChange={(e) => {
-                        setTempKey(e.target.value);
+                        setTempKey((e.target.value).trim());
                       }}
                       value={tempKey}
                     />
@@ -65,13 +65,16 @@ export default function Popup() {
               <button
                 type="button"
                 onClick={() => {
-                  setKey(tempKey)
-                  setOpen(isValidKey(tempKey))
-                  if(isValidKey(tempKey) == true){
-                    setKeyPlaceholder("Wrong Key")
-                    setTempKey("")
+                  const valid = isValidKey(tempKey);
+                  
+                  if (tempKey === "" || valid) {
+                    setKeyPlaceholder("Wrong Key");
+                    setTempKey("");
+                    setOpen(true);
                   } else {
-                    setKeyPlaceholder("Please Enter Your Key")
+                    setKey(tempKey);
+                    setKeyPlaceholder("Please Enter Your Key");
+                    setOpen(false);
                   }
                 }}
                 className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
