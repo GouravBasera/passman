@@ -1,17 +1,32 @@
-'use client'
+"use client";
 
-import { useState, useContext } from 'react'
-import KeyContext from '../context/KeyContext'
-import { Dialog, DialogBackdrop, DialogPanel, DialogTitle } from '@headlessui/react'
-import { ExclamationTriangleIcon } from '@heroicons/react/24/outline'
+import { useState, useContext, useEffect } from "react";
+import KeyContext from "../context/KeyContext";
+import {
+  Dialog,
+  DialogBackdrop,
+  DialogPanel,
+  DialogTitle,
+} from "@headlessui/react";
+import { isValidKey } from "./utils";
 
 export default function Popup() {
-  const [open, setOpen] = useState(true)
-  const [tempKey, setTempKey] = useState("")
-  const {setKey} = useContext(KeyContext)
+  const [open, setOpen] = useState(true);
+  const [tempKey, setTempKey] = useState("");
+  const { setKey } = useContext(KeyContext);
+  const [popupText, setPopupText] = useState("Choose Your Key");
+  const [keyPlaceholder, setKeyPlaceholder] = useState("Please Enter Your Key")
+
+  useEffect(()=>{
+    if(JSON.parse(localStorage.getItem('passArr')).length == 0){
+      setPopupText("Choose Your Key")
+    } else {
+      setPopupText("Enter Your Key")
+    }
+  }, [])
 
   return (
-    <Dialog open={open} onClose={setOpen} className="relative z-10">
+    <Dialog open={open} onClose={()=>{if(tempKey == ""){setOpen(true)}}} className="relative z-10">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
@@ -25,17 +40,23 @@ export default function Popup() {
           >
             <div className="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
               <div className="sm:flex sm:items-start">
-                <div className="mx-auto flex size-12 shrink-0 items-center justify-center rounded-full bg-red-100 sm:mx-0 sm:size-10">
-                  <ExclamationTriangleIcon aria-hidden="true" className="size-6 text-red-600" />
-                </div>
                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left">
-                  <DialogTitle as="h3" className="text-base font-semibold text-gray-900">
-                  Enter Your Key
+                  <DialogTitle
+                    as="h3"
+                    className="text-base font-semibold text-gray-900"
+                  >
+                    {popupText}
                   </DialogTitle>
-                  <div className="mt-2">
-                    <input type="text" placeholder='Key Should be Unique' className="outline rounded pl-1 h-[40px]" onInputCapture={(e)=>{
-                      setTempKey(e.target.value)
-                    }}/>
+                  <div className="mt-3">
+                    <input
+                      type="text"
+                      placeholder={keyPlaceholder}
+                      className="outline rounded-2xl pl-3 h-[40px]"
+                      onChange={(e) => {
+                        setTempKey(e.target.value);
+                      }}
+                      value={tempKey}
+                    />
                   </div>
                 </div>
               </div>
@@ -45,9 +66,14 @@ export default function Popup() {
                 type="button"
                 onClick={() => {
                   setKey(tempKey)
-                  setOpen(false)
-                }
-                }
+                  setOpen(isValidKey(tempKey))
+                  if(isValidKey(tempKey) == true){
+                    setKeyPlaceholder("Wrong Key")
+                    setTempKey("")
+                  } else {
+                    setKeyPlaceholder("Please Enter Your Key")
+                  }
+                }}
                 className="inline-flex w-full justify-center rounded-md bg-red-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-red-500 sm:ml-3 sm:w-auto"
               >
                 Save Key
@@ -57,5 +83,5 @@ export default function Popup() {
         </div>
       </div>
     </Dialog>
-  )
+  );
 }

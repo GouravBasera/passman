@@ -5,7 +5,9 @@ import App from './App.jsx'
 import KeyContextProvider from './context/KeyContextProvider.jsx'
 
 createRoot(document.getElementById('root')).render(
+  <StrictMode>
   <KeyContextProvider>
     <App />
   </KeyContextProvider>
+  </StrictMode>
 )

@@ -101,3 +101,20 @@ export const sortByWebsite = (crieteria)=>{
         localStorage.setItem('tempPassArr', JSON.stringify(tempPassArr))   
     }
 }
+
+// Validate Encryption Key
+export const isValidKey = (tempKey)=>{
+    if(!JSON.parse(localStorage.getItem("passArr")) || JSON.parse(localStorage.getItem("passArr")).length == 0){
+        console.log(JSON.parse(localStorage.getItem("passArr")).length)
+        return false
+    } else {
+        const allPasswords = JSON.parse(localStorage.getItem("passArr"))
+        const firstPass = allPasswords[0][2]
+        const decrypted = CryptoJS.AES.decrypt(firstPass, tempKey).toString(CryptoJS.enc.Utf8)
+        if(decrypted == ""){
+            return true
+        } else {
+            return false
+        }
+    }
+}
