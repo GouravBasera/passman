@@ -60,7 +60,7 @@ function PassMan() {
             if (!searchValue) {
               alert("Search Field Empty");
             } else {
-              if (isUsernameEnabled == true) {
+              if (isUsernameEnabled === true) {
                 searchPasswordUsername(searchValue);
               } else {
                 searchPasswordWebsite(searchValue);
@@ -99,13 +99,13 @@ function PassMan() {
           className="rounded-2xl text-white focus:outline-none flex justify-center pl-[10px]"
           onChange={(e) => {
             const targetVal = e.target.value;
-            if (targetVal == "ascUser") {
+            if (targetVal === "ascUser") {
               sortByUsername(targetVal);
-            } else if (targetVal == "descUser") {
+            } else if (targetVal === "descUser") {
               sortByUsername(targetVal);
-            } else if (targetVal == "ascWeb") {
+            } else if (targetVal === "ascWeb") {
               sortByWebsite(targetVal);
-            } else if (targetVal == "descWeb") {
+            } else if (targetVal === "descWeb") {
               sortByWebsite(targetVal);
             }
 
@@ -182,7 +182,7 @@ function PassMan() {
                 <button
                   onClick={() => {
                     const updatedPasswords = passwords.map((password) => {
-                      if (password[2] == encryptedPass) {
+                      if (password[2] === encryptedPass) {
                         password[4] = !password[4];
                       }
                       return password;

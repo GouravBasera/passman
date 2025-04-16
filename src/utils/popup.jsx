@@ -18,7 +18,7 @@ export default function Popup() {
   const [keyPlaceholder, setKeyPlaceholder] = useState("Please Enter Your Key")
 
   useEffect(()=>{
-    if(JSON.parse(localStorage.getItem('passArr')).length == 0){
+    if(JSON.parse(localStorage.getItem('passArr')).length === 0){
       setPopupText("Choose Your Key")
     } else {
       setPopupText("Enter Your Key")
@@ -26,7 +26,7 @@ export default function Popup() {
   }, [])
 
   return (
-    <Dialog open={open} onClose={()=>{if(tempKey == ""){setOpen(true)}}} className="relative z-10">
+    <Dialog open={open} onClose={()=>{if(tempKey === ""){setOpen(true)}}} className="relative z-10">
       <DialogBackdrop
         transition
         className="fixed inset-0 bg-gray-500/75 transition-opacity data-closed:opacity-0 data-enter:duration-300 data-enter:ease-out data-leave:duration-200 data-leave:ease-in"
