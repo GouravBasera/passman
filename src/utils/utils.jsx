@@ -14,12 +14,21 @@ export function savePassword(passArr, applicationName, userName, password, isFav
 
 // Generate Password
 export function generatePassword(len) {
-    let passwordString = '3z5SLrgP7128eApE~IQafMXiYsKxo$l!wnJ@Oq6GTmvuC*FNDVH%B^9Zkty5j#URh0d4c&bW'
-    let generatedPasswordString = ''
+    const passwordString = [
+        "qwertyuioplkjhgfdsazxcvbnm",
+        "ASDFGHJKLPOIUYTREWQZXCVBNM",
+        "0192834765",
+        "!@~#$%&^*(){}"
+    ];
+    
+    let generatedPasswordString = '';
+    
     for (let i = 0; i < len; i++) {
-        generatedPasswordString += passwordString[Math.floor(Math.random() * passwordString
-            .length)]
-    } return generatedPasswordString
+        const category = passwordString[Math.floor(Math.random() * passwordString.length)];
+        const randomChar = category[Math.floor(Math.random() * category.length)];   
+        generatedPasswordString += randomChar;
+    }   
+    return generatedPasswordString;
 }
 
 // Get brand logo using BrandFetch API
