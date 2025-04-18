@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { getBrandLogo } from "../utils/utils";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCopy } from "@fortawesome/free-regular-svg-icons";
@@ -19,10 +19,13 @@ function PassGen() {
   const [passwordLength, setPasswordLength] = useState(8);
   const [username, setUsername] = useState("");
   const [platformName, setPlatformName] = useState("");
-  const [passStrText, setPassStrText] = useState("Weak");
   const [passwordStrengthScore, setPasswordStrengthScore] = useState(0)
 
   const passArr = JSON.parse(localStorage.getItem("passArr")) || [];
+
+  useEffect(() => {
+    setPasswordStrengthScore(passwordStrengthCalculator(password))
+  }, [password]);
 
   return (
     <div className="mainContainer w-[60vw] h-full">
@@ -94,7 +97,7 @@ function PassGen() {
 
         <div className="passwordStrength w-[60%] flex flex-col">
           <progress value={passwordStrengthScore} id="passwordStrengthBar" className="w-full"/>
-          <label htmlFor="passwordStrengthBar">{passStrText}</label>
+          <label htmlFor="passwordStrengthBar">Password Strength: {passwordStrengthCalculator(password) > 0.75 ? "Strong" : passwordStrengthCalculator(password) > 0.5 ? "Medium" : "Weak"}</label>
         </div>
 
         <div className="buttonField flex gap-4 w-[60%]">
