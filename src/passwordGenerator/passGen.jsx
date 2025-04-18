@@ -6,6 +6,7 @@ import {
   handleCopyPassword,
   generatePassword,
   savePassword,
+  passwordStrengthCalculator
 } from "../utils/utils";
 import { encryptPassword } from "../utils/utils";
 import KeyContext from "../context/KeyContext";
@@ -18,6 +19,8 @@ function PassGen() {
   const [passwordLength, setPasswordLength] = useState(8);
   const [username, setUsername] = useState("");
   const [platformName, setPlatformName] = useState("");
+  const [passStrText, setPassStrText] = useState("Weak");
+  const [passwordStrengthScore, setPasswordStrengthScore] = useState(0)
 
   const passArr = JSON.parse(localStorage.getItem("passArr")) || [];
 
@@ -52,7 +55,12 @@ function PassGen() {
               type="text"
               id="passwordField"
               value={password}
-              onChange={(e) => setPassword(e.target.value)}
+              onChange={(e) => {
+                setPasswordStrengthScore(passwordStrengthCalculator(password))
+                if(e.target.value == ""){
+                  setPasswordStrengthScore(0)
+                }
+                setPassword(e.target.value)}}
               className="p-2 rounded w-full pr-10"
             />
             <p
@@ -82,6 +90,11 @@ function PassGen() {
               onChange={(e) => setPasswordLength(e.target.value)}
             />
           </div>
+        </div>
+
+        <div className="passwordStrength w-[60%] flex flex-col">
+          <progress value={passwordStrengthScore} id="passwordStrengthBar" className="w-full"/>
+          <label htmlFor="passwordStrengthBar">{passStrText}</label>
         </div>
 
         <div className="buttonField flex gap-4 w-[60%]">

@@ -14,21 +14,32 @@ export function savePassword(passArr, applicationName, userName, password, isFav
 
 // Generate Password
 export function generatePassword(len) {
-    const passwordString = [
+    const charGroups = [
         "qwertyuioplkjhgfdsazxcvbnm",
         "ASDFGHJKLPOIUYTREWQZXCVBNM",
         "0192834765",
         "!@~#$%&^*(){}"
     ];
-    
-    let generatedPasswordString = '';
-    
-    for (let i = 0; i < len; i++) {
-        const category = passwordString[Math.floor(Math.random() * passwordString.length)];
-        const randomChar = category[Math.floor(Math.random() * category.length)];   
-        generatedPasswordString += randomChar;
-    }   
-    return generatedPasswordString;
+
+    let guaranteedChars = charGroups.map(group => {
+        return group[Math.floor(Math.random() * group.length)];
+    });
+
+    let remainingChars = [];
+    for (let i = 4; i < len; i++) {
+        const group = charGroups[Math.floor(Math.random() * 4)];
+        const char = group[Math.floor(Math.random() * group.length)];
+        remainingChars.push(char);
+    }
+
+    const allChars = guaranteedChars.concat(remainingChars);
+
+    for (let i = allChars.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [allChars[i], allChars[j]] = [allChars[j], allChars[i]];
+    }
+
+    return allChars.join('');
 }
 
 // Get brand logo using BrandFetch API
@@ -114,7 +125,6 @@ export const sortByWebsite = (crieteria)=>{
 // Validate Encryption Key
 export const isValidKey = (tempKey)=>{
     if(!JSON.parse(localStorage.getItem("passArr")) || JSON.parse(localStorage.getItem("passArr")).length == 0){
-        console.log(JSON.parse(localStorage.getItem("passArr")).length)
         return false
     } else {
         const allPasswords = JSON.parse(localStorage.getItem("passArr"))
@@ -127,3 +137,20 @@ export const isValidKey = (tempKey)=>{
         }
     }
 }
+
+
+export const passwordStrengthCalculator = (password) => {
+    const hasLowercase = /[a-z]/.test(password);
+    const hasUppercase = /[A-Z]/.test(password);
+    const hasNumber    = /[0-9]/.test(password);
+    const hasSpecial   = /[!@#$%^&*()_+{}]/.test(password);
+
+    let score = 0;
+
+    if (hasLowercase) score += 0.25;
+    if (hasUppercase) score += 0.25;
+    if (hasNumber)    score += 0.25;
+    if (hasSpecial)   score += 0.25;
+
+    return score;
+};
