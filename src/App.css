@@ -36,3 +36,27 @@ button{
     display: none; /* Chrome, Safari */
   }
   
+
+  progress {
+    -webkit-appearance: none;
+    appearance: none;
+    outline: #39ADFF;
+    border-radius: 10px;
+  }
+  
+  /* For Chrome, Safari */
+  progress::-webkit-progress-bar {
+    background-color: wheat;
+    border-radius: 10px;
+  }
+  
+  progress::-webkit-progress-value {
+    background-color: #39ADFF;
+    border-radius: 10px;
+  }
+  
+  /* For Firefox */
+  progress::-moz-progress-bar {
+    background-color: #39ADFF;
+    border-radius: 10px;
+  }

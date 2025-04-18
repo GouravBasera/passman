@@ -147,10 +147,11 @@ export const passwordStrengthCalculator = (password) => {
 
     let score = 0;
 
+    if (password.length < 8) return 0
     if (hasLowercase) score += 0.25;
     if (hasUppercase) score += 0.25;
     if (hasNumber)    score += 0.25;
     if (hasSpecial)   score += 0.25;
 
-    return score;
+    return score
 };

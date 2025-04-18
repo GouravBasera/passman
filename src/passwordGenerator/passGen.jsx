@@ -6,25 +6,25 @@ import {
   handleCopyPassword,
   generatePassword,
   savePassword,
-  passwordStrengthCalculator
+  passwordStrengthCalculator,
 } from "../utils/utils";
 import { encryptPassword } from "../utils/utils";
 import KeyContext from "../context/KeyContext";
 
 function PassGen() {
-  const {key} = useContext(KeyContext)
+  const { key } = useContext(KeyContext);
 
   const [copyPassword, setCopyPassword] = useState("No Selected Password");
   const [password, setPassword] = useState("");
   const [passwordLength, setPasswordLength] = useState(8);
   const [username, setUsername] = useState("");
   const [platformName, setPlatformName] = useState("");
-  const [passwordStrengthScore, setPasswordStrengthScore] = useState(0)
+  const [passwordStrengthScore, setPasswordStrengthScore] = useState(0);
 
   const passArr = JSON.parse(localStorage.getItem("passArr")) || [];
 
   useEffect(() => {
-    setPasswordStrengthScore(passwordStrengthCalculator(password))
+    setPasswordStrengthScore(passwordStrengthCalculator(password));
   }, [password]);
 
   return (
@@ -59,11 +59,12 @@ function PassGen() {
               id="passwordField"
               value={password}
               onChange={(e) => {
-                setPasswordStrengthScore(passwordStrengthCalculator(password))
-                if(e.target.value == ""){
-                  setPasswordStrengthScore(0)
+                setPasswordStrengthScore(passwordStrengthCalculator(password));
+                if (e.target.value == "") {
+                  setPasswordStrengthScore(0);
                 }
-                setPassword(e.target.value)}}
+                setPassword(e.target.value);
+              }}
               className="p-2 rounded w-full pr-10"
             />
             <p
@@ -95,9 +96,21 @@ function PassGen() {
           </div>
         </div>
 
-        <div className="passwordStrength w-[60%] flex flex-col">
-          <progress value={passwordStrengthScore} id="passwordStrengthBar" className="w-full"/>
-          <label htmlFor="passwordStrengthBar">Password Strength: {passwordStrengthCalculator(password) > 0.75 ? "Strong" : passwordStrengthCalculator(password) > 0.5 ? "Medium" : "Weak"}</label>
+        <div className="passwordStrength w-[60%] flex flex-col mb-[20px] gap-2">
+          <progress
+            value={passwordStrengthScore}
+            id="passwordStrengthBar"
+            max={1}
+            className="w-full h-[10px] bg-amber-600"
+          />
+          <label htmlFor="passwordStrengthBar">
+            Password Strength:{" "}
+            {passwordStrengthCalculator(password) > 0.75
+              ? "Strong"
+              : passwordStrengthCalculator(password) > 0.5
+              ? "Medium"
+              : "Weak"}
+          </label>
         </div>
 
         <div className="buttonField flex gap-4 w-[60%]">
@@ -111,27 +124,27 @@ function PassGen() {
             className="savePassword w-[50%] h-[50px] text-[16px] rounded-xl flex justify-center items-center border-2 border-[#39ADFF] bg-white px-6 py-3 font-semibold uppercase text-black transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-xl hover:shadow-[4px_4px_0px_#39ADFF] active:translate-x-[0px] active:translate-y-[0px] active:rounded-xl active:shadow-none"
             onClick={async () => {
               const encryptedPassword = encryptPassword(password, key);
-              if(!platformName || !username || !encryptedPassword){
-                alert('All Fields are Required')
+              if (!platformName || !username || !encryptedPassword) {
+                alert("All Fields are Required");
               } else {
-              try {
-                const logos = await getBrandLogo(platformName);
-                const imageUrl = logos[0]?.icon || "";
-                savePassword(
-                  passArr,
-                  platformName,
-                  username,
-                  encryptedPassword,
-                  imageUrl,
-                  false
-                );
-              } catch (error) {
-                console.error("Error fetching brand logo:", error);
+                try {
+                  const logos = await getBrandLogo(platformName);
+                  const imageUrl = logos[0]?.icon || "";
+                  savePassword(
+                    passArr,
+                    platformName,
+                    username,
+                    encryptedPassword,
+                    imageUrl,
+                    false
+                  );
+                } catch (error) {
+                  console.error("Error fetching brand logo:", error);
+                }
+                setPassword("");
+                setUsername("");
+                setPlatformName("");
               }
-              setPassword("")
-              setUsername("")
-              setPlatformName("")
-            }
             }}
           >
             Save
