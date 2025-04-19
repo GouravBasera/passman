@@ -17,13 +17,18 @@ export default function Popup() {
   const [popupText, setPopupText] = useState("Choose Your Key");
   const [keyPlaceholder, setKeyPlaceholder] = useState("Please Enter Your Key")
 
-  useEffect(()=>{
-    if(JSON.parse(localStorage.getItem('passArr')).length === 0){
-      setPopupText("Choose Your Key")
-    } else {
-      setPopupText("Enter Your Key")
+  useEffect(() => {
+    try {
+      const stored = JSON.parse(localStorage.getItem("passArr"));
+      if (!Array.isArray(stored) || stored.length === 0) {
+        setPopupText("Choose Your Key");
+      } else {
+        setPopupText("Enter Your Key");
+      }
+    } catch (error) {
+      setPopupText("Choose Your Key");
     }
-  }, [])
+  }, []);  
 
   return (
     <Dialog open={open} onClose={()=>{if(tempKey === ""){setOpen(true)}}} className="relative z-10">
