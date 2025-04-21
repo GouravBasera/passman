@@ -1,8 +1,8 @@
 {
     "manifest_version": 3,
-    "name": "My First Extension",
+    "name": "What's My Password",
     "version": "1.0",
-    "description": "This is a simple Chrome extension.",
+    "description": "Store all your passwords in a safe place",
     "action": {
       "default_popup": "index.html",
       "default_icon": {
