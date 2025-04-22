@@ -6,8 +6,10 @@ import {
   faEyeSlash,
   faHeart as faHeartFilled,
   faTrash,
+  faMagnifyingGlass
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import searchIcon from "../assets/searchIcon.svg"
 import {
   handleCopyPassword,
   decryptPassword,
@@ -43,18 +45,18 @@ function PassMan() {
   }, []);
 
   return (
-    <div className="managerContainer w-[40%] flex flex-col bg-[#39ADFF] justify-center items-center">
+    <div className="managerContainer h-full w-[40%] flex flex-col bg-[#39ADFF] justify-center items-center">
       <div className="buttonContainer w-[80%] mb-[20px] flex gap-5 focus:outline-none">
         <input
           type="text"
-          className="h-[40px] shadow-xl bg-[#EFEFEF] rounded-2xl mb-[10px] w-[80%] py-[25px] focus:outline-none text-left pl-[30px]"
+          className="searchField h-[40px] shadow-xl bg-[#EFEFEF] rounded-2xl mb-[10px] w-[80%] py-[25px] focus:outline-none text-left pl-[30px]"
           value={searchValue}
           onChange={(event) => {
             setSearchValue(event.target.value);
           }}
         />
         <button
-          className="w-[20%] h-[40px] py-[25px] text-[16px] rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+          className="searchButton w-[20%] h-[40px] py-[25px] text-[16px] rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
           onClick={() => {
             if (!searchValue) {
               alert("Search Field Empty");
@@ -68,7 +70,7 @@ function PassMan() {
             setPasswords(JSON.parse(localStorage.getItem("tempPassArr")));
           }}
         >
-          Search
+          <FontAwesomeIcon icon={faMagnifyingGlass} className="searchIcon"/>
         </button>
       </div>
       <div className="filtersContainer flex gap-2.5 mb-[20px] w-[80%] justify-end">
@@ -144,17 +146,17 @@ function PassMan() {
               className="individualContainer bg-[#fff] rounded-2xl shadow-xl h-[64px] mb-[30px] flex items-center"
             >
               <div className="iconContainer w-[20%] pl-[20px]">
-                <img src={imgSrc} alt={alt} className="h-10" />
+                <img src={imgSrc} alt={alt} className="h-10 iconImages" />
               </div>
               <div className="savedPassDetails pl-[5%] w-[60%]">
                 <p>{username}</p>
-                <div className="relative w-full flex items-center">
-                  <p className="w-[70%] passwordContainer">
+                <div className="relative w-full flex items-center passwordContainer">
+                  <p className="w-[70%] passwordText">
                     {visiblePasswords[encryptedPass]
                       ? decryptPassword(encryptedPass, key)
                       : "********"}
                   </p>
-                  <span className="cursor-pointer text-gray-600">
+                  <span className="copyButton cursor-pointer text-gray-600">
                     <FontAwesomeIcon
                       icon={faCopy}
                       onClick={() => {
@@ -162,7 +164,7 @@ function PassMan() {
                       }}
                     />
                   </span>
-                  <span className="pl-2">
+                  <span className="pl-2 viewPasswordButton">
                     <FontAwesomeIcon
                       icon={
                         visiblePasswords[encryptedPass] ? faEyeSlash : faEye

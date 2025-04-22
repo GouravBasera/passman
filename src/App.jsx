@@ -11,8 +11,8 @@ function App() {
 
   return (
     <>
-    <Popup/>
-    <div className='flex h-screen w-screen justify-center'>
+    {/* <Popup/> */}
+    <div className='flex h-screen w-screen justify-center items-center'>
       <PassMan/>
       <PassGen/>
     </div>

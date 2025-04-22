@@ -96,6 +96,7 @@ button{
     /* Password Manager */
     .managerContainer{
       width: 50%;
+      height: 80%;
     }
     .filtersContainer{
       width: 80%;
@@ -104,5 +105,71 @@ button{
     .clearFilter{
       width: 40%;
       float: right;
+    }
+    .searchField{
+      height: 10px;
+      padding: 15px;
+      width: 14.5em;
+      position: absolute;
+      z-index: 1;
+    }
+    .searchButton{
+      position: relative;
+      z-index: 10;
+      padding: 0;
+      left: 12em;
+      height: 30px;
+      width: 30px;
+      border-radius: 50%;
+      color: #39ADFF;
+      overflow: hidden;
+    }
+    .searchIcon{
+      color: #fff;
+    }
+    .passContainer{
+      background: #39ADFF;
+      box-shadow: none;
+      padding: 0;
+    }
+    .individualContainer{
+      width: 100%;
+      margin-bottom: 20px;
+      height: 50px;
+    }
+    .iconContainer{
+      padding: 0;
+      padding-left: 10px;
+      width: 25%;
+    }
+    .iconImages{
+      border-radius: 50%;
+    }
+    .savedPassDetails{
+      width: 50%; 
+    }
+    .passwordText{
+      position: absolute;
+    }
+    .copyButton{
+      position: relative;
+      left: 44px;
+      bottom: 3px;  
+    }
+    .viewPasswordButton{
+      position: relative;
+      left: 42px;
+      bottom: 2px;
+    }
+    .saveCopyShowButtons{
+     width: 20%;
+     margin-left: 10%;
+    }
+    .holderContainer{
+      height: 80%;
+      margin: auto;
+    }
+    .mainContainer{
+      height: 80%;
     }
   }
