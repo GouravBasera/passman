@@ -60,3 +60,49 @@ button{
     background-color: #39ADFF;
     border-radius: 10px;
   }
+
+  /* 425px */
+  @media screen and (max-width: 425px) {
+    *{
+      font-size: 12px;
+    }
+    h1{
+      font-size: 19px;
+      margin-bottom: 30px;
+      text-align: center;
+    }
+
+    /* Password Generator */
+    .mainContainer{
+      width: 50%;
+    }
+    .popupDialogue{
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+    }
+    .userInputFields{
+      width: 85%;
+    }
+    .passwordStrength{
+      display: none;
+    }
+    .buttonField{
+      width: 85%;
+    }
+
+    /* Password Manager */
+    .managerContainer{
+      width: 50%;
+    }
+    .filtersContainer{
+      width: 80%;
+      flex-direction: column;
+    }
+    .clearFilter{
+      width: 40%;
+      float: right;
+    }
+  }

@@ -31,12 +31,11 @@ function PassGen() {
     <div className="mainContainer w-[60vw] h-full">
       <div className="holderContainer h-full flex flex-col items-center justify-center">
         <div className="userInputFields w-[60%] flex flex-col gap-[4px]">
-          <p className="text-[48px] font-bold">Generate Password</p>
-          <label htmlFor="platformName">Enter the Application Name</label>
+          <h1 className="text-[48px] font-extrabold">Generate Password</h1>
+          <label htmlFor="platformName">Application Name</label>
           <input
             id="platformName"
             type="text"
-            placeholder="Enter platform name"
             value={platformName}
             onChange={(e) => setPlatformName(e.target.value)}
             className="inputField"
@@ -46,13 +45,12 @@ function PassGen() {
           <input
             id="username"
             type="text"
-            placeholder="Enter username"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
             className="inputField h-10"
           />
 
-          <label htmlFor="passwordField">Get your Password Here</label>
+          <label htmlFor="passwordField">Password</label>
           <div className="relative w-full">
             <input
               type="text"

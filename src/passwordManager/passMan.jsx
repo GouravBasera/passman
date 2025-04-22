@@ -48,7 +48,6 @@ function PassMan() {
         <input
           type="text"
           className="h-[40px] shadow-xl bg-[#EFEFEF] rounded-2xl mb-[10px] w-[80%] py-[25px] focus:outline-none text-left pl-[30px]"
-          placeholder={searchCrieteria}
           value={searchValue}
           onChange={(event) => {
             setSearchValue(event.target.value);
@@ -126,7 +125,7 @@ function PassMan() {
           </option>
         </select>
         <button
-          className="rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
+          className="clearFilter rounded-2xl flex justify-center items-center border-2 border-[#fff] bg-[#39ADFF] px-6 font-semibold uppercase text-white transition-all duration-300 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-2xl hover:shadow-[4px_4px_0px_#fff] active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none"
           onClick={() => {
             setPasswords(JSON.parse(localStorage.getItem("passArr")));
             localStorage.setItem("tempPassArr", JSON.stringify([]))
